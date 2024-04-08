@@ -39,28 +39,6 @@ function Item({ itemList, onDeleteItem, onCheckedItem }) {
           </div>
         </div>
       </div>
-      {/* <div class="todo-item">
-        <div class="checker">
-          <span class="">
-            <input type="checkbox" />
-          </span>
-        </div>
-        <span>Organize office main department</span>
-        <a href="javascript:void(0);" className="float-right remove-todo-item">
-          <i class="fa-solid fa-trash"></i>
-        </a>
-      </div>
-      <div class="todo-item">
-        <div class="checker">
-          <span>
-            <input type="checkbox" />
-          </span>
-        </div>
-        <span>Kumain ng pares ni romnick</span>
-        <a href="javascript:void(0);" className="float-right remove-todo-item">
-          <i class="fa-solid fa-trash"></i>
-        </a>
-      </div> */}
     </div>
   );
 }
