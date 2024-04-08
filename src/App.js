@@ -10,6 +10,7 @@ import Footer from "./Component/Footer";
 function App() {
   const [items, setItems] = useState([]);
   const [sortBy, setSortBy] = useState("");
+  const [filterBy, setFilterBy] = useState("");
 
   const handleAddItem = (item) => {
     setItems((prevItems) => [...prevItems, item]);
@@ -38,7 +39,11 @@ function App() {
     setSortBy(e.target.value);
   };
 
-  const sortItems = (criteria) => {
+  const handleFilterChange = (e) => {
+    setFilterBy(e.target.value);
+  };
+
+  const sortItems = (items, criteria) => {
     switch (criteria) {
       case "name":
         return [...items].sort((a, b) => a.name.localeCompare(b.name));
@@ -53,11 +58,24 @@ function App() {
     }
   };
 
+  const filterItems = (items, method) => {
+    switch (method) {
+      case "finished":
+        return items.filter((item) => item.isChecked);
+      case "unfinished":
+        return items.filter((item) => !item.isChecked);
+      default:
+        return items;
+    }
+  };
+
+  const sortedItems = sortItems(items, sortBy);
+  const filteredItems = filterItems(sortedItems, filterBy);
+
   return (
     <div className="App">
       <div className="mainpage-body">
         <Header />
-
         <ListForm onAddItem={handleAddItem} />
         <div className="btnFeatures">
           <div className="sort-dropdown">
@@ -71,14 +89,24 @@ function App() {
               <option value="checked">Checked</option>
             </select>
           </div>
+          <div className="filter-dropdown">
+            <select
+              value={filterBy}
+              onChange={handleFilterChange}
+              className="form-select mx-2"
+            >
+              <option value="">Filter by...</option>
+              <option value="finished">Finished</option>
+              <option value="unfinished">Unfinished</option>
+            </select>
+          </div>
         </div>
         <ItemList
-          items={sortItems(sortBy)}
+          items={filteredItems}
           onDeleteItem={handleDeleteItem}
           onCheckedItem={handleCheckedItems}
         />
       </div>
-
       <Footer items={items} />
     </div>
   );
